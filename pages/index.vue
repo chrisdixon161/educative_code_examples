@@ -6,6 +6,7 @@ const displayImages = useDisplayImages();
 
 const numberOfPages = useNumberOfPages();
 const currentPageNumber = useCurrentPageNumber();
+const safeSearch = useSafeSearch(); //
 
 const userInput = ref("");
 function handleSearch() {
@@ -20,6 +21,9 @@ function handleSearch() {
 			@keyup.enter="handleSearch"
 			placeholder="Search for an image"
 		/>
+		<!-- added -->
+		<label for="safe_search"><small>Safe search?</small></label
+		><input type="checkbox" v-model="safeSearch" id="safe_search" />
 	</header>
 	<ul class="images">
 		<li v-for="image in displayImages" :key="image.id">

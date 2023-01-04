@@ -4,6 +4,7 @@ export default function useSearch() {
 	const numberOfPages = useNumberOfPages();
 	const imagesPerPage = useImagesPerPage();
 	const currentPageNumber = useCurrentPageNumber();
+	const safeSearch = useSafeSearch(); //
 
 	const apiKey = "579835-d0622f0785ca94c156742fdca";
 	const baseUrl = "https://pixabay.com/api/";
@@ -12,7 +13,7 @@ export default function useSearch() {
 
 	const { data: images } = useFetch(
 		() =>
-			`?key=${apiKey}&q=${searchTerm.value}&page=${currentPageNumber.value}&per_page=${imagesPerPage.value}`,
+			`?key=${apiKey}&q=${searchTerm.value}&page=${currentPageNumber.value}&per_page=${imagesPerPage.value}&safesearch=${safeSearch.value}`,
 		{
 			baseURL: baseUrl,
 		}
@@ -22,7 +23,7 @@ export default function useSearch() {
 		displayImages.value = [];
 		imageData.value = images?.value?.hits;
 		displayImages.value = images?.value?.hits;
-		numberOfPages.value = Math.ceil(images?.value?.total / imagesPerPage.value); //
+		numberOfPages.value = Math.ceil(images?.value?.total / imagesPerPage.value);
 	}
 	watch(images, setImageData);
 
