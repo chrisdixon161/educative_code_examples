@@ -1,14 +1,13 @@
 <script setup>
-const { searchTerm } = useSearch();
+const { searchTerm, tags } = useSearch();
 const { previousPage, nextPage } = usePagination();
 
 const displayImages = useDisplayImages();
-
 const numberOfPages = useNumberOfPages();
 const currentPageNumber = useCurrentPageNumber();
-const safeSearch = useSafeSearch(); //
-
+const safeSearch = useSafeSearch();
 const userInput = ref("");
+
 function handleSearch() {
 	searchTerm.value = userInput.value;
 }
@@ -21,9 +20,13 @@ function handleSearch() {
 			@keyup.enter="handleSearch"
 			placeholder="Search for an image"
 		/>
-		<!-- added -->
 		<label for="safe_search"><small>Safe search?</small></label
 		><input type="checkbox" v-model="safeSearch" id="safe_search" />
+		<section class="search_tags">
+			<button v-for="tag in tags" :key="tag">
+				{{ tag }}
+			</button>
+		</section>
 	</header>
 	<ul class="images">
 		<li v-for="image in displayImages" :key="image.id">

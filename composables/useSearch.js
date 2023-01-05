@@ -10,6 +10,7 @@ export default function useSearch() {
 	const baseUrl = "https://pixabay.com/api/";
 
 	const searchTerm = ref("");
+	const tags = new Set();
 
 	const { data: images } = useFetch(
 		() =>
@@ -24,8 +25,21 @@ export default function useSearch() {
 		imageData.value = images?.value?.hits;
 		displayImages.value = images?.value?.hits;
 		numberOfPages.value = Math.ceil(images?.value?.total / imagesPerPage.value);
+		createTags();
 	}
 	watch(images, setImageData);
 
-	return { searchTerm };
+	function createTags() {
+		tags.clear();
+		if (displayImages.value.length > 0) {
+			displayImages.value.forEach((element) => {
+				const arr = element.tags.split(", ");
+				arr.forEach(function (tag) {
+					tags.add(tag);
+				});
+			});
+		}
+	}
+
+	return { searchTerm, tags };
 }
