@@ -1,5 +1,5 @@
 <script setup>
-const { searchTerm, tags } = useSearch();
+const { searchTerm, tags, selectedTag } = useSearch();
 const { previousPage, nextPage } = usePagination();
 
 const displayImages = useDisplayImages();
@@ -10,6 +10,14 @@ const userInput = ref("");
 
 function handleSearch() {
 	searchTerm.value = userInput.value;
+}
+function handleTagClicked(tag) {
+	// if selected tag is clicked again, clear tag so all images can be viewed
+	if (selectedTag.value === tag) {
+		selectedTag.value = "";
+	} else {
+		selectedTag.value = tag;
+	}
 }
 </script>
 <template>
@@ -23,7 +31,14 @@ function handleSearch() {
 		<label for="safe_search"><small>Safe search?</small></label
 		><input type="checkbox" v-model="safeSearch" id="safe_search" />
 		<section class="search_tags">
-			<button v-for="tag in tags" :key="tag">
+			<button
+				v-for="tag in tags"
+				:key="tag"
+				@click="handleTagClicked(tag)"
+				:style="{
+					background: selectedTag === tag ? 'lightslategray' : 'transparent',
+				}"
+			>
 				{{ tag }}
 			</button>
 		</section>

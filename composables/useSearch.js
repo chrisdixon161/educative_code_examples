@@ -4,13 +4,14 @@ export default function useSearch() {
 	const numberOfPages = useNumberOfPages();
 	const imagesPerPage = useImagesPerPage();
 	const currentPageNumber = useCurrentPageNumber();
-	const safeSearch = useSafeSearch(); //
+	const safeSearch = useSafeSearch();
 
 	const apiKey = "579835-d0622f0785ca94c156742fdca";
 	const baseUrl = "https://pixabay.com/api/";
 
 	const searchTerm = ref("");
 	const tags = new Set();
+	const selectedTag = ref("");
 
 	const { data: images } = useFetch(
 		() =>
@@ -41,5 +42,12 @@ export default function useSearch() {
 		}
 	}
 
-	return { searchTerm, tags };
+	function filterImagesByTag() {
+		displayImages.value = imageData.value.filter(function (image) {
+			return image.tags.includes(selectedTag.value);
+		});
+	}
+	watch(selectedTag, filterImagesByTag);
+
+	return { searchTerm, tags, selectedTag };
 }
