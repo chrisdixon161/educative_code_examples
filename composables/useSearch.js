@@ -5,6 +5,10 @@ export default function useSearch() {
 	const imagesPerPage = useImagesPerPage();
 	const currentPageNumber = useCurrentPageNumber();
 	const safeSearch = useSafeSearch();
+	const selectedColors = useSelectedColors();
+	const formattedColors = computed(function () {
+		return selectedColors.value.toString();
+	});
 
 	const apiKey = "579835-d0622f0785ca94c156742fdca";
 	const baseUrl = "https://pixabay.com/api/";
@@ -15,7 +19,7 @@ export default function useSearch() {
 
 	const { data: images } = useFetch(
 		() =>
-			`?key=${apiKey}&q=${searchTerm.value}&page=${currentPageNumber.value}&per_page=${imagesPerPage.value}&safesearch=${safeSearch.value}`,
+			`?key=${apiKey}&q=${searchTerm.value}&page=${currentPageNumber.value}&per_page=${imagesPerPage.value}&safesearch=${safeSearch.value}&colors=${formattedColors.value}`,
 		{
 			baseURL: baseUrl,
 		}
