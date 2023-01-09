@@ -12,7 +12,6 @@ function handleSearch() {
 	searchTerm.value = userInput.value;
 }
 function handleTagClicked(tag) {
-	// if selected tag is clicked again, clear tag so all images can be viewed
 	if (selectedTag.value === tag) {
 		selectedTag.value = "";
 	} else {
@@ -46,6 +45,7 @@ function handleTagClicked(tag) {
 	<section class="options_wrapper">
 		<div class="menu_options">
 			<ImagesPerPage />
+			<ColorOptions />
 		</div>
 		<div class="pixabay_credit">
 			<span>Images by: </span>
@@ -73,21 +73,6 @@ function handleTagClicked(tag) {
 </template>
 
 <style>
-.colors_wrapper {
-	display: flex;
-	max-width: 50%;
-	flex-wrap: wrap;
-}
-.text_color_option {
-	cursor: pointer;
-}
-.color_option {
-	border-radius: 100%;
-	width: 20px;
-	height: 20px;
-	cursor: pointer;
-	display: block;
-}
 .search_header {
 	display: flex;
 	flex-direction: column;
