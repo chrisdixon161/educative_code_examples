@@ -8,7 +8,11 @@ const currentPageNumber = useCurrentPageNumber();
 const safeSearch = useSafeSearch();
 const userInput = ref("");
 
+const featuredImage = useFeaturedImage();
+const isEditorsChoice = useIsEditorsChoice();
+
 function handleSearch() {
+	isEditorsChoice.value = false;
 	searchTerm.value = userInput.value;
 }
 function handleTagClicked(tag) {
@@ -20,8 +24,18 @@ function handleTagClicked(tag) {
 }
 </script>
 <template>
-	<header class="search_header">
+	<header
+		class="search_header"
+		:style="{
+			backgroundImage: `url(${featuredImage})`,
+			height: '50vh',
+			backgroundPosition: 'center',
+			maxWidth: '100%',
+			backgroundRepeat: 'no-repeat',
+		}"
+	>
 		<input
+			class="search"
 			type="text"
 			v-model="userInput"
 			@keyup.enter="handleSearch"
@@ -77,6 +91,7 @@ function handleTagClicked(tag) {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	justify-content: center;
 }
 .search {
 	margin: 1rem;

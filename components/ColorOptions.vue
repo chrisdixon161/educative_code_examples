@@ -62,7 +62,6 @@ function setColor(color) {
 }
 .color_option {
 	border-radius: 100%;
-	/* border: 1px solid; */
 	width: 20px;
 	height: 20px;
 	cursor: pointer;

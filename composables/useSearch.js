@@ -17,15 +17,27 @@ export default function useSearch() {
 	const tags = new Set();
 	const selectedTag = ref("");
 
+	const isEditorsChoice = useIsEditorsChoice();
+	const featuredImage = useFeaturedImage();
+
 	const { data: images } = useFetch(
 		() =>
-			`?key=${apiKey}&q=${searchTerm.value}&page=${currentPageNumber.value}&per_page=${imagesPerPage.value}&safesearch=${safeSearch.value}&colors=${formattedColors.value}`,
+			`?key=${apiKey}&q=${searchTerm.value}&page=${currentPageNumber.value}&per_page=${imagesPerPage.value}&safesearch=${safeSearch.value}&colors=${formattedColors.value}&editors_choice=${isEditorsChoice.value}`,
 		{
 			baseURL: baseUrl,
 		}
 	);
 
+	function fetchFeaturedImage() {
+		isEditorsChoice.value = true;
+		const randomNumber = Math.floor(Math.random() * 20) + 1;
+		featuredImage.value = images?.value?.hits[randomNumber]?.largeImageURL;
+	}
+
+	onMounted(fetchFeaturedImage);
+
 	function setImageData() {
+		if (isEditorsChoice.value) return;
 		displayImages.value = [];
 		imageData.value = images?.value?.hits;
 		displayImages.value = images?.value?.hits;

@@ -23,3 +23,6 @@ export const useAvailableColors = () =>
 		"brown",
 	]);
 export const useSelectedColors = () => useState("selected-colors", () => []);
+export const useIsEditorsChoice = () =>
+	useState("is-editors-choice", () => false);
+export const useFeaturedImage = () => useState("featured-image", () => "");
