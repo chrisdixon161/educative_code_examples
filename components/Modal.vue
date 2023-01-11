@@ -2,7 +2,7 @@
 const props = defineProps({
 	modalImage: Object,
 });
-const emit = defineEmits("close-modal");
+const emit = defineEmits(["close-modal"]);
 const selectedImage = useSelectedImage();
 </script>
 

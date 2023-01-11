@@ -30,76 +30,83 @@ function openModal(image) {
 	modalOpen.value = true;
 	modalImage.value = image;
 }
+
 function closeModal() {
 	modalOpen.value = false;
 }
 </script>
 <template>
-	<Modal :modalImage="modalImage" @close-modal="closeModal" v-if="modalOpen" />
-	<header
-		class="search_header"
-		:style="{
-			backgroundImage: `url(${featuredImage})`,
-			height: '50vh',
-			backgroundPosition: 'center',
-			maxWidth: '100%',
-			backgroundRepeat: 'no-repeat',
-		}"
-	>
-		<input
-			class="search"
-			type="text"
-			v-model="userInput"
-			@keyup.enter="handleSearch"
-			placeholder="Search for an image"
+	<div>
+		<Modal
+			:modalImage="modalImage"
+			@close-modal="closeModal"
+			v-if="modalOpen"
 		/>
-		<label for="safe_search"><small>Safe search?</small></label
-		><input type="checkbox" v-model="safeSearch" id="safe_search" />
-		<section class="search_tags">
-			<button
-				v-for="tag in tags"
-				:key="tag"
-				@click="handleTagClicked(tag)"
-				:style="{
-					background: selectedTag === tag ? 'lightslategray' : 'transparent',
-				}"
-			>
-				{{ tag }}
-			</button>
+		<header
+			class="search_header"
+			:style="{
+				backgroundImage: `url(${featuredImage})`,
+				height: '50vh',
+				backgroundPosition: 'center',
+				maxWidth: '100%',
+				backgroundRepeat: 'no-repeat',
+			}"
+		>
+			<input
+				class="search"
+				type="text"
+				v-model="userInput"
+				@keyup.enter="handleSearch"
+				placeholder="Search for an image"
+			/>
+			<label for="safe_search"><small>Safe search?</small></label
+			><input type="checkbox" v-model="safeSearch" id="safe_search" />
+			<section class="search_tags">
+				<button
+					v-for="tag in tags"
+					:key="tag"
+					@click="handleTagClicked(tag)"
+					:style="{
+						background: selectedTag === tag ? 'lightslategray' : 'transparent',
+					}"
+				>
+					{{ tag }}
+				</button>
+			</section>
+		</header>
+		<section class="options_wrapper">
+			<div class="menu_options">
+				<ImagesPerPage />
+				<ColorOptions />
+			</div>
+			<div class="pixabay_credit">
+				<span>Images by: </span>
+				<img
+					class="pixabay_credit_image"
+					src="images/logo.svg"
+					alt="pixabay logo"
+				/>
+			</div>
 		</section>
-	</header>
-	<section class="options_wrapper">
-		<div class="menu_options">
-			<ImagesPerPage />
-			<ColorOptions />
-		</div>
-		<div class="pixabay_credit">
-			<span>Images by: </span>
-			<img
-				class="pixabay_credit_image"
-				src="images/logo.svg"
-				alt="pixabay logo"
-			/>
-		</div>
-	</section>
-	<ul class="images">
-		<li v-for="image in displayImages" :key="image.id">
-			<img
-				class="img_preview"
-				:src="image.webformatURL"
-				@click="openModal(image)"
-			/>
-		</li>
-	</ul>
-	<footer v-if="displayImages.length > 0">
-		<button v-if="currentPageNumber > 1" @click="previousPage">
-			Previous page
-		</button>
-		<button v-if="currentPageNumber < numberOfPages" @click="nextPage">
-			Next page
-		</button>
-		<p>page {{ currentPageNumber }} of {{ numberOfPages }}</p>
-	</footer>
+		<ul class="images">
+			<li v-for="image in displayImages" :key="image.id">
+				<img
+					class="img_preview"
+					:src="image.webformatURL"
+					@click="openModal(image)"
+				/>
+			</li>
+		</ul>
+		<footer v-if="displayImages.length > 0">
+			<button v-if="currentPageNumber > 1" @click="previousPage">
+				Previous page
+			</button>
+			<button v-if="currentPageNumber < numberOfPages" @click="nextPage">
+				Next page
+			</button>
+			<p>page {{ currentPageNumber }} of {{ numberOfPages }}</p>
+		</footer>
+	</div>
 </template>
 
 <style>
