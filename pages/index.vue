@@ -22,8 +22,20 @@ function handleTagClicked(tag) {
 		selectedTag.value = tag;
 	}
 }
+
+const modalOpen = ref(false);
+const modalImage = ref({});
+
+function openModal(image) {
+	modalOpen.value = true;
+	modalImage.value = image;
+}
+function closeModal() {
+	modalOpen.value = false;
+}
 </script>
 <template>
+	<Modal :modalImage="modalImage" @close-modal="closeModal" v-if="modalOpen" />
 	<header
 		class="search_header"
 		:style="{
@@ -72,7 +84,11 @@ function handleTagClicked(tag) {
 	</section>
 	<ul class="images">
 		<li v-for="image in displayImages" :key="image.id">
-			<img class="img_preview" :src="image.webformatURL" />
+			<img
+				class="img_preview"
+				:src="image.webformatURL"
+				@click="openModal(image)"
+			/>
 		</li>
 	</ul>
 	<footer v-if="displayImages.length > 0">

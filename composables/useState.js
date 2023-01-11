@@ -26,3 +26,4 @@ export const useSelectedColors = () => useState("selected-colors", () => []);
 export const useIsEditorsChoice = () =>
 	useState("is-editors-choice", () => false);
 export const useFeaturedImage = () => useState("featured-image", () => "");
+export const useSelectedImage = () => useState("selected-image", () => null);
