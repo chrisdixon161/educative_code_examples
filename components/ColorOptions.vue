@@ -54,16 +54,16 @@ function setColor(color) {
 <style>
 .colors_wrapper {
 	display: flex;
-	max-width: 50%;
-	flex-wrap: wrap;
 }
 .text_color_option {
 	cursor: pointer;
+	padding: 3px;
+	border-radius: 3px;
 }
 .color_option {
 	border-radius: 100%;
-	width: 20px;
-	height: 20px;
+	width: 15px;
+	height: 15px;
 	cursor: pointer;
 	/* turn span elements into block to display in browser since they have no content inside tags */
 	display: block;

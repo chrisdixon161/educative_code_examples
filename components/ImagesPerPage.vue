@@ -2,6 +2,7 @@
 const imagesPerPage = useImagesPerPage();
 </script>
 <template>
+	<p>Image per page:</p>
 	<select v-model="imagesPerPage">
 		<option disabled value="">Please select one</option>
 		<option>20</option>

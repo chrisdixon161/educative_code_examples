@@ -52,22 +52,24 @@ function closeModal() {
 				backgroundRepeat: 'no-repeat',
 			}"
 		>
-			<input
-				class="search"
-				type="text"
-				v-model="userInput"
-				@keyup.enter="handleSearch"
-				placeholder="Search for an image"
-			/>
-			<label for="safe_search"><small>Safe search?</small></label
-			><input type="checkbox" v-model="safeSearch" id="safe_search" />
+			<div>
+				<input
+					class="search"
+					type="text"
+					v-model="userInput"
+					@keyup.enter="handleSearch"
+					placeholder="Search for an image"
+				/>
+				<label for="safe_search"><small>Safe search?</small></label
+				><input type="checkbox" v-model="safeSearch" id="safe_search" />
+			</div>
 			<section class="search_tags">
 				<button
 					v-for="tag in tags"
 					:key="tag"
 					@click="handleTagClicked(tag)"
 					:style="{
-						background: selectedTag === tag ? 'lightslategray' : 'transparent',
+						background: selectedTag === tag ? 'lightslategray' : '#ededed',
 					}"
 				>
 					{{ tag }}
@@ -75,10 +77,6 @@ function closeModal() {
 			</section>
 		</header>
 		<section class="options_wrapper">
-			<div class="menu_options">
-				<ImagesPerPage />
-				<ColorOptions />
-			</div>
 			<div class="pixabay_credit">
 				<span>Images by: </span>
 				<img
@@ -87,6 +85,8 @@ function closeModal() {
 					alt="pixabay logo"
 				/>
 			</div>
+			<ImagesPerPage />
+			<ColorOptions />
 		</section>
 		<ul class="images">
 			<li v-for="image in displayImages" :key="image.id">
@@ -96,6 +96,7 @@ function closeModal() {
 					@click="openModal(image)"
 					format="webp"
 					loading="lazy"
+					height="200"
 				/>
 			</li>
 		</ul>
@@ -116,33 +117,33 @@ function closeModal() {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-between;
+	padding: 1rem 0;
 }
 .search {
 	margin: 1rem;
 	padding: 10px;
 	border-radius: 5px;
-	width: 50%;
+	width: 50vw;
 }
 .search_tags {
 	display: flex;
 	flex-direction: row;
-	flex-wrap: wrap;
 	justify-content: center;
+	flex-wrap: wrap;
+	width: 50vw;
 }
 .options_wrapper {
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	margin: 1rem 0;
 }
 
-.menu_options {
-	display: flex;
-}
-
 .pixabay_credit {
 	display: flex;
-	justify-content: flex-end;
+	justify-content: center;
+	align-items: center;
 }
 
 .pixabay_credit_image {
@@ -169,12 +170,11 @@ li {
 }
 
 .img_preview {
-	/* max-height: 200px; */
 	cursor: pointer;
 }
+
 button {
-	border: 1px lightslategray solid;
-	background: none;
+	border: none;
 	margin: 5px 2px;
 	border-radius: 3px;
 	cursor: pointer;
