@@ -26,9 +26,10 @@ async function handleDownload() {
 
 <template>
 	<div>
-		<img
+		<nuxt-img
 			:src="selectedImage.largeImageURL"
 			:alt="`image by ${selectedImage.user}`"
+			format="webp"
 		/>
 		<p>By: {{ selectedImage.user }}</p>
 		<p>Tags: {{ selectedImage.tags }}</p>

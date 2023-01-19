@@ -90,10 +90,12 @@ function closeModal() {
 		</section>
 		<ul class="images">
 			<li v-for="image in displayImages" :key="image.id">
-				<img
+				<nuxt-img
 					class="img_preview"
 					:src="image.webformatURL"
 					@click="openModal(image)"
+					format="webp"
+					loading="lazy"
 				/>
 			</li>
 		</ul>
@@ -167,7 +169,7 @@ li {
 }
 
 .img_preview {
-	max-height: 200px;
+	/* max-height: 200px; */
 	cursor: pointer;
 }
 button {
