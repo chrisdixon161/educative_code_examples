@@ -2,6 +2,9 @@
 // middleware to check if image is selected- if not error on refresh
 definePageMeta({
 	middleware: "single",
+	pageTransition: {
+		name: "rotate",
+	},
 });
 const selectedImage = useSelectedImage();
 

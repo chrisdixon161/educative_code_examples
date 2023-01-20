@@ -179,4 +179,11 @@ button {
 	border-radius: 3px;
 	cursor: pointer;
 }
+
+.custom-enter-active,
+.custom-leave-active {
+}
+.custom-enter-from,
+.custom-leave-to {
+}
 </style>
